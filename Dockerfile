@@ -1,20 +1,20 @@
-# Shuttle usually needs a modern Node environment
+# Use Node.js 20 as the base image for modern package support
 FROM node:20-slim
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy dependency files first for better caching
+# Copy package files first to optimize build times
 COPY package*.json ./
 
-# Install all dependencies including devDependencies (Shuttle sometimes needs them for build)
+# Install all dependencies (Shuttle needs both for the build process)
 RUN npm install
 
-# Copy the rest of the project files
+# Copy the rest of your application code
 COPY . .
 
-# Match the port Shuttle typically uses (check your config, often 8080 or 3000)
+# Match the port to your Back4App settings (must be 8080)
 EXPOSE 8080
 
-# The command to start Shuttle
-CMD ["npm", "start"]
+# Explicitly bind to 0.0.0.0 to allow external traffic
+CMD ["node", "index.js", "--host", "0.0.0.0"]
