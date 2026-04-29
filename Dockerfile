@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Match the port to your Back4App settings (must be 8080)
-EXPOSE 8080
+EXPOSE 1492
 
 # Explicitly bind to 0.0.0.0 to allow external traffic
 CMD ["node", "index.js", "--host", "0.0.0.0"]
